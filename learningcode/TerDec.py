@@ -16,7 +16,7 @@ Table of Contents
 3. Count in a Flush Manner
 4. Print first 5 items of dict, list, string, tuple
 
-Copyright: kcxwdzx@sina.com
+Copyright: kcxwdzx@sina.com                    Date:03/05/2020
 
 """
 #Import--------------
@@ -39,7 +39,7 @@ class setpath:
                 print ("\nNew path is set as: " + self.path + "\nThank You!\n")
                 break
             elif change == 'n':
-                print ("\nThis path is kept.\nThank You!\n")
+                print ("\nThis path is kept.Thank You!\n")
                 break
             else:
                 print('\nONLY y or n is accepted. Please try again.')
