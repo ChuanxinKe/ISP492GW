@@ -25,7 +25,7 @@ c.execute("CREATE TABLE IF NOT EXISTS sentiment(unix REAL, tweet TEXT, sentiment
 conn.commit()
 mission0_1.end()
 
-mission0_2=td.Mission('接连today备份数据库,目前有bug数据更改在根目录')
+mission0_2=td.Mission('接连today备份数据库,目前有bug,数据更改在根目录')
 conn_today=sqlite3.connect('(today)twitter_sentiment.db')#建议当天跑完后重命名,然后从空表格(model)twitter_sentiment.db复制重命名,做到每日数据有个备份文件
 c_today=conn_today.cursor()
 c_today.execute("CREATE TABLE IF NOT EXISTS sentiment(unix REAL, tweet TEXT, sentiment REAL)")

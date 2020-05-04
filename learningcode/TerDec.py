@@ -107,7 +107,7 @@ if __name__== '__main__':
     
     mission2 = Mission('loop 500 times')
     c=counter()
-    for i in range(5):
+    for i in range(500):
         c.flush()
     mission2.end()
 
