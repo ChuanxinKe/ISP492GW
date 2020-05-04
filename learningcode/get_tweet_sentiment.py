@@ -12,26 +12,34 @@ import sqlite3
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from unidecode import unidecode
 import time
-import TerDec as td
+import TerDec as td #个人开发模块,需要TerDec.py支持
 
-############################
-# SETUP vader, db
-############################
+mission_inti=td.Mission('开始初始化')
+
+mission0_1=td.Mission('初始化变量并接连主数据库')
 analyzer = SentimentIntensityAnalyzer()
+ct=td.counter(count='      No. of Tweets put into database: ')
 conn = sqlite3.connect('twitter_sentiment.db') #use whichever name you like for your db. just make sure you use the same db name in your subsequent scripts (i.e. Pt2-4)
 c = conn.cursor()
 c.execute("CREATE TABLE IF NOT EXISTS sentiment(unix REAL, tweet TEXT, sentiment REAL)")
 conn.commit()
-ct=td.counter(count='      No. of Tweets put into database: ')
-############################
-# Creds
-############################
-#your consumer key, consumer secret, access token, access secret.
+mission0_1.end()
+
+mission0_2=td.Mission('接连today备份数据库')
+conn_today=sqlite3.connect('(today)twitter_sentiment.db')#建议当天跑完后重命名,然后从空表格(model)twitter_sentiment.db复制重命名,做到每日数据有个备份文件
+c_today=conn.cursor()
+c_today.execute("CREATE TABLE IF NOT EXISTS sentiment(unix REAL, tweet TEXT, sentiment REAL)")
+conn_today.commit()
+mission0_2.end()
+
+mission0_3=td.Mission('读取API Keys')
 ckey=""
 csecret=""
 atoken=""
 asecret=""
+mission0_3.end()
 
+mission_inti.end()
 ############################
 # class object
 ############################
@@ -46,6 +54,8 @@ class listener(StreamListener): #listener is being declared as a class inheritin
             sentiment = vs['compound']
             c.execute("INSERT INTO sentiment (unix, tweet, sentiment) VALUES (?, ?, ?)",(time_ms, tweet, sentiment))
             conn.commit()
+            c_today.execute("INSERT INTO sentiment (unix, tweet, sentiment) VALUES (?, ?, ?)",(time_ms, tweet, sentiment))
+            conn_today.commit()
             ct.flush()
 
         except KeyError as e:
@@ -55,6 +65,8 @@ class listener(StreamListener): #listener is being declared as a class inheritin
     def on_error(self, status):
         print(status)
 
+
+mission1=td.Mission('开始主程序,获取tweets推送并录入数据库,显示数据量提示')
 try:
     auth = OAuthHandler(ckey, csecret)
     auth.set_access_token(atoken, asecret)
