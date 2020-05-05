@@ -14,7 +14,7 @@ start_date = dt.datetime(2020, 4, 1) #set what you like here
 end_date = dt.datetime.now()    
 results = [] #potential issue here is that multiple datatypes come from datareader. so you need to ensure read data is parsed to string in order to buffer to this list. also, remember that lists are one-dimensional, so can only take one variable. Need a Dict for multi col. Here we create a csv line/record, i.e. fields concatenated with commas.
 outpath=td.setpath('/Users/yuhaihong/Desktop/Jemma/IMBT/Data Science.csv')
-outpath.askupdate()
+outpath.askupdate('数据输出路径和文件名')
 mission0.end()
 # MAIN : --------------------
 mission1=td.Mission('获取并输出股票数据(主程序)')

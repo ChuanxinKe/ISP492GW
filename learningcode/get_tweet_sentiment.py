@@ -16,7 +16,7 @@ import TerDec as td #个人开发模块,需要TerDec.py支持
 
 mission_inti=td.Mission('开始初始化')
 
-mission0_1=td.Mission('初始化变量并接连主数据库,目前有bug数据更改在根目录')
+mission0_1=td.Mission('初始化变量并接连主数据库,目前有bug,数据库在项目根目录')
 analyzer = SentimentIntensityAnalyzer()
 ct=td.counter(count='      No. of Tweets put into database: ')
 conn = sqlite3.connect('twitter_sentiment.db') #use whichever name you like for your db. just make sure you use the same db name in your subsequent scripts (i.e. Pt2-4)
@@ -25,7 +25,7 @@ c.execute("CREATE TABLE IF NOT EXISTS sentiment(unix REAL, tweet TEXT, sentiment
 conn.commit()
 mission0_1.end()
 
-mission0_2=td.Mission('接连today备份数据库,目前有bug,数据更改在根目录')
+mission0_2=td.Mission('接连today备份数据库,目前有bug,数据库在项目根目录')
 conn_today=sqlite3.connect('(today)twitter_sentiment.db')#建议当天跑完后重命名,然后从空表格(model)twitter_sentiment.db复制重命名,做到每日数据有个备份文件
 c_today=conn_today.cursor()
 c_today.execute("CREATE TABLE IF NOT EXISTS sentiment(unix REAL, tweet TEXT, sentiment REAL)")
