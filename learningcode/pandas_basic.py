@@ -13,7 +13,7 @@ mission2=td.Mission('制作并展示DataFrame数据结构,随机方式生成,时
 dates=pd.date_range('20200410',periods=10)
 dataset2 = pd.DataFrame(np.random.rand(10,4), index=dates, columns=['A','B','C','D'])
 td.printfive(dataset2,'All columns')
-td.printfive(dataset2['B'],'only columns B')
+td.printfive(dataset2['B'],'only column B')
 mission2.end()
 
 mission3=td.Mission('用字典创建标准dataframe')
