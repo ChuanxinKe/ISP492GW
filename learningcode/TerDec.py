@@ -18,9 +18,10 @@ Table of Contents
 1. Path Configuration Setting when Transplanted
 2. Mission Reply
 3. Count in a Flush Manner
-4. Print First 5 Items of dict, list, string, tuple (pandas also supported)
+4. Print First 5 Items of dict, list, string, tuple
+(pandas, pandas to numpy.array also supported)
 
-Copyright: kcxwdzx@sina.com                    Last Modify Date:05/05/2020
+Copyright: kcxwdzx@sina.com                    Last Modify Date:06/05/2020
 
 """
 #Import--------------
@@ -73,8 +74,8 @@ class Mission:
 
 # Count in a Flush Manner--------------------
 class counter:
-    # Default: sleep 0.01s each count, print'Count:' and start from 0. "
-    def __init__(self, sleep=0.01, count='Count: ',number=0):
+    # Default: sleep 0.01s each count, print'Count' and start from 0. "
+    def __init__(self, sleep=0.01, count='Count',number=0):
         self.sleep=sleep
         self.count=count
         self.number=number
@@ -83,12 +84,12 @@ class counter:
     # So it may be disturbed by other print.  
     def flush(self):
         self.number=self.number+1
-        print(self.count+str(self.number),end='\r')
+        print(self.count+': '+str(self.number),end='\r')
         time.sleep(self.sleep)
 
 
 def printfive(results, description="the target data"):
-# Print first 5 items of dict, list, string, tuple, pandas.series----------------------
+# Print first 5 items of dict, list, string, tuple, pandas.series, pandas.DayaFrame, pandas to numpy.ndarray----------------------
 # description is optional. Default as: "the target data"   
     print('\nprint 5 samples - : ' + description)
     print(type(results))
@@ -109,7 +110,7 @@ def printfive(results, description="the target data"):
             for i in range(5):
                 print(results[i])
     except:
-        print('Please check data. Only dict, list, string, tuple, pandas.series, pandas.dataframe are support!')
+        print('Please check data. Only dict, list, string, tuple, pandas.series, pandas.dataframe, pandas to numpy.ndarray are support!')
 
 ###Internal Test-----------------------
 if __name__== '__main__':
