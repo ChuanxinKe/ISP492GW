@@ -26,7 +26,7 @@ mission3.end()
 mission4=td.Mission('用python字典创建标准dataframe')
 standard_data = {"name":['google','baidu','yahoo'],"marks":[100,200,300],"price":[1,2,3]}
 dataset3=pd.DataFrame(standard_data)
-td.printfive(dataset3,'Only 3 rows, so show 3')
+print(dataset3.head())
 mission4.end()
 
 mission5=td.Mission('同维度不对等数据,随机数生成,并进行运算')

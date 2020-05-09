@@ -1,7 +1,3 @@
-'''
-Needs pandas.
-'''
-
 """
 This is a terminal decoration module. It aims at building a fresher-friendly presentation of terminal outputs.
 However it can also be used to replace some of the notes, so it won't bring to many burdens to developers and lines to script.
@@ -21,17 +17,12 @@ Table of Contents
 4. Print First 5 Items of dict, list, string, tuple
 (pandas, pandas to numpy.array also supported)
 
-Copyright: kcxwdzx@sina.com                    Last Modify Date:06/05/2020
+Copyright: kcxwdzx@sina.com                    Last Modify Date:09/05/2020
 
 """
 #Import--------------
 import timeit
 import time
-import pandas
-
-# For special support of pandas
-a={"name":['google','baidu'],"price":[1,2]}
-pddate=pandas.DataFrame(a)
 
 # Path Configuration Setting when Transplanted-------------
 class setpath:
@@ -59,14 +50,14 @@ class setpath:
 class Mission:
     # begintime is used to get how many seconds are used so far.
     begintime = timeit.default_timer()
-    # mis is optional for mission name. Default as:""
     def __init__(self, mis=""):
+        # mis is optional for mission name. Default as:""
         self.mis = mis
         self.starttime = timeit.default_timer()
         print('\n>>>> MISSION: '+ self.mis +' >>>>\n')
     
-    # print the time this mission used and so far since initial.
     def end(self):
+        # print the time this mission used and so far since initial.
         self.endtime = timeit.default_timer()
         interval = format(self.endtime-self.starttime,'.5f')
         sofar = format(self.endtime-self.begintime,'.5f')
@@ -74,23 +65,26 @@ class Mission:
 
 # Count in a Flush Manner--------------------
 class counter:
-    # Default: sleep 0.01s each count, print'Count' and start from 0. "
+    
     def __init__(self, sleep=0.01, count='Count',number=0):
+        # Default: sleep 0.01s each count, print'Count' and start from 0.
         self.sleep=sleep
         self.count=count
         self.number=number
 
-    # Count the number and print it in a flush way by [end='\r'].
-    # So it may be disturbed by other print.  
+
     def flush(self):
+        # Count the number and print it in a flush way by [end='\r'].
+        # So it may be disturbed by other print.  
         self.number=self.number+1
         print(self.count+': '+str(self.number),end='\r')
         time.sleep(self.sleep)
 
 
 def printfive(results, description="the target data"):
-# Print first 5 items of dict, list, string, tuple, pandas.series, pandas.DayaFrame, pandas to numpy.ndarray----------------------
-# description is optional. Default as: "the target data"   
+    # Print first 5 items of dict, list, string, tuple, pandas.series, numpy.ndarray
+    # For pandas.DataFrame the head() and tail() is enough
+    # description is optional. Default as: "the target data"   
     print('\nprint 5 samples - : ' + description)
     print(type(results))
     try:
@@ -99,9 +93,6 @@ def printfive(results, description="the target data"):
             print(a)
             print('Notes: Although print as list, it did not change actually.')
         
-        elif type(results)==type(pddate):
-            print(results[0:5])
-
         elif len(results)<5:
             for i in range(len(results)):
                 print(results[i])
@@ -110,7 +101,7 @@ def printfive(results, description="the target data"):
             for i in range(5):
                 print(results[i])
     except:
-        print('Please check data. Only dict, list, string, tuple, pandas.series, pandas.dataframe, pandas to numpy.ndarray are support!')
+        print('Please check data. Only dict, list, string, tuple, pandas.series, numpy.ndarray are support!')
 
 ###Internal Test-----------------------
 if __name__== '__main__':
