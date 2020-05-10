@@ -1,51 +1,51 @@
-----5ÔÂ8ÈÕÊı¾İÌ½Ë÷:
-Êı¾İ¿â:   tweets_explore_data.db
-±í:  May8
-ºËĞÄpython¿â:  {tweepy},{vaderSentiment}
-×Ö¶Î:  (id_str TEXT, tweets TEXT,user_id_str TEXT, lang TEXT, timestamp_ms Real,
+ï»¿----5æœˆ8æ—¥æ•°æ®æ¢ç´¢:
+æ•°æ®åº“:   tweets_explore_data.db
+è¡¨:  May8
+æ ¸å¿ƒpythonåº“:  {tweepy},{vaderSentiment}
+å­—æ®µ:  (id_str TEXT, tweets TEXT,user_id_str TEXT, lang TEXT, timestamp_ms Real,
           sentiment_neg REAL, sentiment_neu REAL,sentiment_pos REAL,sentiment_compound REAL)
-×Ö¶Îº¬Òå:   µÚÒ»ĞĞÇëgoogle,°Ù¶È,»ò²ÎÕÕ{tweepy}¹Ù·½document
-                 µÚ¶şĞĞÇëgoogle,°Ù¶È,»ò²ÎÕÕ{vaderSentiment}¹Ù·½document
-                 ²¿·Ö×Ö¶ÎÃû³ÆÂÔÓĞµ÷Õû,¿ÉËæÊ±×ÉÑ¯
-Ê±¼ä:  5ÔÂ8ÈÕ 17:10-17:25
-Êı¾İÁ¿:   4w
-Êı¾İÉ¸Ñ¡:   ¸ù¾İ {tweepy}¡úStream¡úfilter(track=["a","e","i","o","u"])¹Ù·½¹¦ÄÜ½øĞĞ,Í¬ÀÏÊ¦demoÒ»Ñù,»ù±¾º¬ÒåÊÇÍÆÎÄº¬ÓĞÀ­¶¡×ÖÄ¸µÄ¶¼»ñÈ¡
-Êı¾İ´¦Àí:  ÎŞÈÎºÎÇåÏ´,·Ö´Ê,´Ê¸ù»¹Ô­ºÍstop´ÊÌŞ³ı
+å­—æ®µå«ä¹‰:   ç¬¬ä¸€è¡Œè¯·google,ç™¾åº¦,æˆ–å‚ç…§{tweepy}å®˜æ–¹document
+                 ç¬¬äºŒè¡Œè¯·google,ç™¾åº¦,æˆ–å‚ç…§{vaderSentiment}å®˜æ–¹document
+                 éƒ¨åˆ†å­—æ®µåç§°ç•¥æœ‰è°ƒæ•´,å¯éšæ—¶å’¨è¯¢
+æ—¶é—´:  5æœˆ8æ—¥ 17:10-17:25
+æ•°æ®é‡:   4w
+æ•°æ®ç­›é€‰:   æ ¹æ® {tweepy}â†’Streamâ†’filter(track=["a","e","i","o","u"])å®˜æ–¹åŠŸèƒ½è¿›è¡Œ,åŒè€å¸ˆdemoä¸€æ ·,åŸºæœ¬å«ä¹‰æ˜¯æ¨æ–‡å«æœ‰æ‹‰ä¸å­—æ¯çš„éƒ½è·å–
+æ•°æ®å¤„ç†:  æ— ä»»ä½•æ¸…æ´—,åˆ†è¯,è¯æ ¹è¿˜åŸå’Œstopè¯å‰”é™¤
 
-----5ÔÂ9ÈÕÊı¾İÌ½Ë÷:
-Êı¾İ¿â:   tweets_explore_data.db
-±í:  May9
-ºËĞÄpython¿â:  {tweepy},{vaderSentiment},{nltk.corpus}
-×Ö¶Î:  (id_str TEXT, tweets TEXT,user_id_str TEXT, lang TEXT, timestamp_ms Real,
+----5æœˆ9æ—¥æ•°æ®æ¢ç´¢:
+æ•°æ®åº“:   tweets_explore_data.db
+è¡¨:  May9
+æ ¸å¿ƒpythonåº“:  {tweepy},{vaderSentiment},{nltk.corpus}
+å­—æ®µ:  (id_str TEXT, tweets TEXT,user_id_str TEXT, lang TEXT, timestamp_ms Real,
           sentiment_neg REAL, sentiment_neu REAL,sentiment_pos REAL,sentiment_compound REAL
            text_clean TEXT)
-×Ö¶Îº¬Òå:   µÚÒ»ĞĞÇëgoogle,°Ù¶È,»ò²ÎÕÕ{tweepy}¹Ù·½document
-                 µÚ¶şĞĞÇëgoogle,°Ù¶È,»ò²ÎÕÕ{vaderSentiment}¹Ù·½document
-                 µÚÈıĞĞÎª¸öÈË²Î¿¼ÆäËûÈËÇåÏ´¹ı³ÌÇåÏ´½á¹û
-                 ²¿·Ö×Ö¶ÎÃû³ÆÂÔÓĞµ÷Õû,¿ÉËæÊ±×ÉÑ¯
-Ê±¼ä:  5ÔÂ9ÈÕ 10:35-10:50
-Êı¾İÁ¿:   2.5w
-Êı¾İÉ¸Ñ¡:   ¸ù¾İ {tweepy}¡úStream¡úfilter(track=["a","e","i","o","u"])¹Ù·½¹¦ÄÜ½øĞĞ,Í¬ÀÏÊ¦demoÒ»Ñù,»ù±¾º¬ÒåÊÇÍÆÎÄº¬ÓĞÀ­¶¡×ÖÄ¸µÄ¶¼»ñÈ¡
-                 ¸ù¾İ[lang]=='en',É¸Ñ¡ÈëÊı¾İ¿â,¸ù¾İ×òÌìÊı¾İ±íMay8¸Ğ¾õÊÇÍÆÎÄÓïÑÔÎªÓ¢ÎÄµÄÒâË¼,×Ö¶Î±£Áô¹©Êı¾İÊÇ·ñ¸É¾»²éÑé
-Êı¾İ´¦Àí:  ÔİÎŞ´Ê¸ù»¹Ô­,emojiÇåÏ´
-                URLÇåÏ´,·Ö´Ê,stop´ÊÌŞ³ıµÈ²Î¿¼±ğÈËÇåÏ´¹ı³Ì,¸Ğ¾õ½á¹ûÓĞµãÎÊÌâ,µ«ÊÇÊı¾İ½á¹¹½«»áÈçËùÊ¾,Ó¦¸Ã²»»áÓ°ÏìÊı¾İ·ÖÎö½×¶Î¿ª·¢
+å­—æ®µå«ä¹‰:   ç¬¬ä¸€è¡Œè¯·google,ç™¾åº¦,æˆ–å‚ç…§{tweepy}å®˜æ–¹document
+                 ç¬¬äºŒè¡Œè¯·google,ç™¾åº¦,æˆ–å‚ç…§{vaderSentiment}å®˜æ–¹document
+                 ç¬¬ä¸‰è¡Œä¸ºä¸ªäººå‚è€ƒå…¶ä»–äººæ¸…æ´—è¿‡ç¨‹æ¸…æ´—ç»“æœ
+                 éƒ¨åˆ†å­—æ®µåç§°ç•¥æœ‰è°ƒæ•´,å¯éšæ—¶å’¨è¯¢
+æ—¶é—´:  5æœˆ9æ—¥ 10:35-10:50
+æ•°æ®é‡:   2.5w
+æ•°æ®ç­›é€‰:   æ ¹æ® {tweepy}â†’Streamâ†’filter(track=["a","e","i","o","u"])å®˜æ–¹åŠŸèƒ½è¿›è¡Œ,åŒè€å¸ˆdemoä¸€æ ·,åŸºæœ¬å«ä¹‰æ˜¯æ¨æ–‡å«æœ‰æ‹‰ä¸å­—æ¯çš„éƒ½è·å–
+                 æ ¹æ®[lang]=='en',ç­›é€‰å…¥æ•°æ®åº“,æ ¹æ®æ˜¨å¤©æ•°æ®è¡¨May8æ„Ÿè§‰æ˜¯æ¨æ–‡è¯­è¨€ä¸ºè‹±æ–‡çš„æ„æ€,å­—æ®µä¿ç•™ä¾›æ•°æ®æ˜¯å¦å¹²å‡€æŸ¥éªŒ
+æ•°æ®å¤„ç†:  æš‚æ— è¯æ ¹è¿˜åŸ,emojiæ¸…æ´—
+                URLæ¸…æ´—,åˆ†è¯,stopè¯å‰”é™¤ç­‰å‚è€ƒåˆ«äººæ¸…æ´—è¿‡ç¨‹,æ„Ÿè§‰ç»“æœæœ‰ç‚¹é—®é¢˜,ä½†æ˜¯æ•°æ®ç»“æ„å°†ä¼šå¦‚æ‰€ç¤º,åº”è¯¥ä¸ä¼šå½±å“æ•°æ®åˆ†æé˜¶æ®µå¼€å‘
 
-----5ÔÂ9ÈÕÊı¾İ»ñÈ¡Ê¾Àı:
-Êı¾İ¿â:   tweets_raw.db
-±í:  raw_tweets
-ºËĞÄpython¿â:  {tweepy},{vaderSentiment}
-×Ö¶Î:  (id_str TEXT, tweets TEXT,user_id_str TEXT, lang TEXT, timestamp_ms REAL,\
+----5æœˆ9æ—¥æ•°æ®è·å–ç¤ºä¾‹:
+æ•°æ®åº“:   tweets_raw.db
+è¡¨:  raw_tweets
+æ ¸å¿ƒpythonåº“:  {tweepy},{vaderSentiment}
+å­—æ®µ:  (id_str TEXT, tweets TEXT,user_id_str TEXT, lang TEXT, timestamp_ms REAL,\
             neg REAL, neu REAL,pos REAL,compound REAL,\
             user_location TEXT,user_followers REAL,user_friends REAL,user_favourites REAL,user_statuses REAL)
-×Ö¶Îº¬Òå:   µÚÒ»ĞĞ,µÚÈıĞĞÇëgoogle,°Ù¶È,»ò²ÎÕÕ{tweepy}¹Ù·½document,ÆäÖĞ:
-                 {Ô­Ê¼:ÎÒÃÇÊı¾İ¿â}   {text:tweets}  {userÏÂÒ»¼¶id_str:user_id_str}  {userÏÂÒ»¼¶location:user_location} 
-                 {userÏÂÒ»¼¶followers_count:user_followers} {userÏÂÒ»¼¶friends_count:user_friends} 
-                 {userÏÂÒ»¼¶favourites_count:user_favourites} {userÏÂÒ»¼¶statuses_count:user_statuses} 
+å­—æ®µå«ä¹‰:   ç¬¬ä¸€è¡Œ,ç¬¬ä¸‰è¡Œè¯·google,ç™¾åº¦,æˆ–å‚ç…§{tweepy}å®˜æ–¹document,å…¶ä¸­:
+                 {åŸå§‹:æˆ‘ä»¬æ•°æ®åº“}   {text:tweets}  {userä¸‹ä¸€çº§id_str:user_id_str}  {userä¸‹ä¸€çº§location:user_location} 
+                 {userä¸‹ä¸€çº§followers_count:user_followers} {userä¸‹ä¸€çº§friends_count:user_friends} 
+                 {userä¸‹ä¸€çº§favourites_count:user_favourites} {userä¸‹ä¸€çº§statuses_count:user_statuses} 
 
-                 µÚ¶şĞĞÇëgoogle,°Ù¶È,»ò²ÎÕÕ{vaderSentiment}¹Ù·½document,»òÀÏÊ¦¿Î¼ş
+                 ç¬¬äºŒè¡Œè¯·google,ç™¾åº¦,æˆ–å‚ç…§{vaderSentiment}å®˜æ–¹document,æˆ–è€å¸ˆè¯¾ä»¶
                  
-Ê±¼ä:  5ÔÂ9ÈÕ 23:25-23:25
-Êı¾İÁ¿:   1.2w
-Êı¾İÉ¸Ñ¡:   ¸ù¾İ {tweepy}¡úStream¡úfilter(track=["a","e","i","o","u"])¹Ù·½¹¦ÄÜ½øĞĞ,Í¬ÀÏÊ¦demoÒ»Ñù,»ù±¾º¬ÒåÊÇÍÆÎÄº¬ÓĞÀ­¶¡×ÖÄ¸µÄ¶¼»ñÈ¡
-                 ¸ù¾İ[lang]=='en',É¸Ñ¡ÈëÊı¾İ¿â,¸ù¾İ×òÌìÊı¾İ±íMay8¸Ğ¾õÊÇÍÆÎÄÓïÑÔÎªÓ¢ÎÄµÄÒâË¼,×Ö¶Î±£Áô¹©Êı¾İÊÇ·ñ¸É¾»²éÑé
-Êı¾İ´¦Àí: ÎŞÈÎºÎÇåÏ´,·Ö´Ê,´Ê¸ù»¹Ô­ºÍstop´ÊÌŞ³ı,¼Æ»®ÓÃÒ»¸öĞÂµÄpyÎÄ¼ş½øĞĞ
+æ—¶é—´:  5æœˆ9æ—¥ 23:25-23:25
+æ•°æ®é‡:   1.2w
+æ•°æ®ç­›é€‰:   æ ¹æ® {tweepy}â†’Streamâ†’filter(track=["a","e","i","o","u"])å®˜æ–¹åŠŸèƒ½è¿›è¡Œ,åŒè€å¸ˆdemoä¸€æ ·,åŸºæœ¬å«ä¹‰æ˜¯æ¨æ–‡å«æœ‰æ‹‰ä¸å­—æ¯çš„éƒ½è·å–
+                 æ ¹æ®[lang]=='en',ç­›é€‰å…¥æ•°æ®åº“,æ ¹æ®æ˜¨å¤©æ•°æ®è¡¨May8æ„Ÿè§‰æ˜¯æ¨æ–‡è¯­è¨€ä¸ºè‹±æ–‡çš„æ„æ€,å­—æ®µä¿ç•™ä¾›æ•°æ®æ˜¯å¦å¹²å‡€æŸ¥éªŒ
+æ•°æ®å¤„ç†: æ— ä»»ä½•æ¸…æ´—,åˆ†è¯,è¯æ ¹è¿˜åŸå’Œstopè¯å‰”é™¤,è®¡åˆ’ç”¨ä¸€ä¸ªæ–°çš„pyæ–‡ä»¶è¿›è¡Œ
