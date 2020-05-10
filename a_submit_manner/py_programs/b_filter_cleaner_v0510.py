@@ -13,11 +13,11 @@ import TerDec as td # Personal module,needs TerDec.py needs pandas
 
 mission0=td.Mission('Initial')
 ct=td.counter(count='      Tweets into database') #Counter from TerDec.py
-dbpath=td.setpath('./data/tweets_raw.db') #Path tool from TerDec.py
+dbpath=td.setpath(r'./data/tweets_raw.db') #Path tool from TerDec.py
 dbpath.askupdate('Path of database')
-kwpath=td.setpath('./data/key_words.csv')
+kwpath=td.setpath(r'./data/key_words.csv')
 kwpath.askupdate('Path of key words list')
-expath=td.setpath('./data/target.xlsx')
+expath=td.setpath(r'./data/target.xlsx')
 expath.askupdate('Path of export excel file')
 stop_words = set(stopwords.words('english'))
 conn = sqlite3.connect(dbpath.path)

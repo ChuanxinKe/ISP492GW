@@ -12,7 +12,7 @@ import TerDec as td # Personal module,needs TerDec.py needs pandas
 
 mission0_1=td.Mission('Initial variables. Connecting to database') #Mission Reply tool from TerDec.py
 ct=td.counter(count='      Tweets into database') #Counter from TerDec.py
-dbpath=td.setpath('./data/tweets_raw.db') #Path tool from TerDec.py
+dbpath=td.setpath(r'./data/tweets_raw.db') #Path tool from TerDec.py
 dbpath.askupdate('Path of database')
 conn = sqlite3.connect(dbpath.path)
 analyzer = SentimentIntensityAnalyzer()
@@ -29,10 +29,10 @@ conn.commit()
 mission0_1.end()
 
 mission0_2=td.Mission('Get API Keys')
-ckey=""
-csecret=""
-atoken=""
-asecret=""
+ckey="MBVMeG1RfsLOYbmIgLCLtpU3k"
+csecret="EGG0oqJkYN9YpuygcNkqEbmPD07R5DBY4UvMx1TT5EsG4L1g92"
+atoken="1252968724790984704-IWFDW6PBDO1OuDJ2HDW5sOlUNq5P5X"
+asecret="siWgdfiJqp76296fYWzjsuVpfHyvBgnbM7sCrjjKcHxrD"
 mission0_2.end()
 
 # class object
