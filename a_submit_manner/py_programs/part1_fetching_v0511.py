@@ -11,7 +11,7 @@ import TerDec as td # Personal module,needs TerDec.py needs pandas
 ############################
 
 mission0_1=td.Mission('Initial variables. Connecting to database') #Mission Reply tool from TerDec.py
-ct=td.counter(count='      Tweets into database') #Counter from TerDec.py
+ct=td.counter(count='Tweets into database',sleep=0) #Counter from TerDec.py
 dbpath=td.setpath(r'./data/tweets_raw.db') #Path tool from TerDec.py
 dbpath.askupdate('Path of database')
 conn = sqlite3.connect(dbpath.path)
@@ -29,22 +29,34 @@ conn.commit()
 mission0_1.end()
 
 mission0_2=td.Mission('Get API Keys')
-ckey="MBVMeG1RfsLOYbmIgLCLtpU3k"
-csecret="EGG0oqJkYN9YpuygcNkqEbmPD07R5DBY4UvMx1TT5EsG4L1g92"
-atoken="1252968724790984704-IWFDW6PBDO1OuDJ2HDW5sOlUNq5P5X"
-asecret="siWgdfiJqp76296fYWzjsuVpfHyvBgnbM7sCrjjKcHxrD"
+ckey=""
+csecret=""
+atoken=""
+asecret=""
 mission0_2.end()
 
 # class object
 class listener(StreamListener): #listener is being declared as a class inheriting from base class StreamListener
 
+    def retweet_handler(self,jsondata):
+        try:
+            full=jsondata['retweeted_status']['extended_tweet']['full_text']
+            return full
+        except:
+            try:
+                full=jsondata['extended_tweet']['full_text']
+                return full
+            except:
+                full=jsondata['text']
+                return full
+   
     def on_data(self, data): #this is therefore a method from StreamListener
         try: 
             raw_data = json.loads(data)
             lang=raw_data['lang']
             if lang=='en':    # first filter by this label, keep it into database for check
+                text=self.retweet_handler(raw_data)
                 id_str=raw_data['id_str']
-                text = raw_data['text']
                 user_id_str=raw_data['user']['id_str']
                 user_location=raw_data['user']['location']
                 user_followers=raw_data['user']['followers_count']
@@ -62,17 +74,14 @@ class listener(StreamListener): #listener is being declared as a class inheritin
                     user_location,user_followers,user_friends,user_favourites,user_statuses))
                 conn.commit()
                 ct.flush() # Show number into database
+            else:
+                pass
 
-        except KeyError as e:
-            print(str(e))
-        return(True)
-
-    def on_error(self, status):
-        print(status)
+        except:
+            pass
 ############################
 
 mission1=td.Mission('Start to fetching and insert into database (Only be stopped manually)')
-
 for aftererror in range(10): #If error, it can still try.
     try:
         auth = OAuthHandler(ckey, csecret)
