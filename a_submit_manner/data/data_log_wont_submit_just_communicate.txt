@@ -1,4 +1,4 @@
-----5月11日大数据获取:
+﻿----5月11日大数据获取:
 数据库:   tweets_raw.db
 表:  raw_tweets
 核心python库:  {tweepy},{vaderSentiment}
@@ -17,3 +17,23 @@
 数据筛选:   根据 {tweepy}→Stream→filter(track=["a","e","i","o","u"])官方功能进行,同老师demo一样,基本含义是推文含有拉丁字母的都获取
                  根据[lang]=='en',筛选入数据库
 数据处理: 目前筛选+清洗脚本,处理结果请见同文件夹target.xslx,处理时间53秒
+
+----5月12日大数据获取:
+数据库:   tweets_raw.db (昨日数据和清洗增加0511后缀,最新数据保持命名便于和其他脚本使用)
+表:  raw_tweets
+核心python库:  {tweepy},{vaderSentiment}
+字段:  (id_str TEXT, tweets TEXT,user_id_str TEXT, lang TEXT, timestamp_ms REAL,\
+            neg REAL, neu REAL,pos REAL,compound REAL,\
+            user_location TEXT,user_followers REAL,user_friends REAL,user_favourites REAL,user_statuses REAL)
+字段含义:   第一行,第三行请google,百度,或参照{tweepy}官方document,其中:
+                 {原始:我们数据库}   {text:tweets}  {user下一级id_str:user_id_str}  {user下一级location:user_location} 
+                 {user下一级followers_count:user_followers} {user下一级friends_count:user_friends} 
+                 {user下一级favourites_count:user_favourites} {user下一级statuses_count:user_statuses} 
+
+                 第二行请google,百度,或参照{vaderSentiment}官方document,或老师课件
+                 
+时间:  5月12日 08:55-13:10
+数据量:   31w
+数据筛选:   根据 {tweepy}→Stream→filter(track=["a","e","i","o","u"])官方功能进行,同老师demo一样,基本含义是推文含有拉丁字母的都获取
+                 根据[lang]=='en',筛选入数据库
+数据处理: 目前筛选+清洗脚本,处理结果请见同文件夹target.xslx,处理时间150秒
