@@ -11,7 +11,7 @@ import TerDec as td # Personal module,needs TerDec.py needs pandas
 ############################
 
 mission0_1=td.Mission('Initial variables. Connecting to database') #Mission Reply tool from TerDec.py
-ct=td.counter(count='Tweets into database',sleep=0) #Counter from TerDec.py
+ct=td.counter(description='Tweets into database',sleep=0) #Counter from TerDec.py
 dbpath=td.setpath(r'./data/tweets_raw.db') #Path tool from TerDec.py
 dbpath.askupdate('Path of database')
 conn = sqlite3.connect(dbpath.path)

@@ -4,7 +4,7 @@ However it can also be used to replace some of the notes, so it won't bring to m
 The author also believes that it helps to debug by using from the beginning. Let your terminal talking!!!
 
 By the way, it takes your machine some time to do so.
->>>if you are starter: 
+>>>if you are a starter: 
        it won't slow your script too much! Don't worry!
    elif:
        I believe you will use it wisely.
@@ -12,12 +12,11 @@ By the way, it takes your machine some time to do so.
 Table of Contents
 
 1. Path Configuration Setting when Transplanted
-2. Mission Reply
+2. Mission Notice and Timer
 3. Count in a Flush Manner
-4. Print First 5 Items of dict, list, string, tuple
-(pandas, pandas to numpy.array also supported)
+4. Print First 5 Items of dict, list, string, tuple, numpy.array
 
-Copyright: kcxwdzx@sina.com                    Last Modify Date:09/05/2020
+Copyright: kcxwdzx@sina.com                    Last Modify Date:13/05/2020
 
 """
 #Import--------------
@@ -28,11 +27,10 @@ import time
 class setpath:
     #You have to set path to create one.
     def __init__(self, path):
-        self.path=path
-    
-    #Just put new file name inside new path.
-    #reminder is optional, default as:'Current path'
-    def askupdate(self,reminder='Current path'):
+        self.path=path  
+    def askupdate(self,description='Current path'):
+        #Just put new file name inside new path.
+        #description is optional, default as:'Current path'
         while True:
             print(reminder+': '+ self.path)
             change = input("Do you want to change? (y/n): ")
@@ -46,43 +44,38 @@ class setpath:
             else:
                 print('\nONLY y or n is accepted. Please try again.')
 
-# Mission Reply----------------
+# Mission Notice and Timer----------------
 class Mission:
     # begintime is used to get how many seconds are used so far.
     begintime = timeit.default_timer()
-    def __init__(self, mis=""):
-        # mis is optional for mission name. Default as:""
-        self.mis = mis
+    def __init__(self, description=""):
+        # description is optional for mission name. Default as:""
+        self.description = description
         self.starttime = timeit.default_timer()
-        print('\n>>>> MISSION: '+ self.mis +' >>>>\n')
-    
+        print('\n>>>> MISSION: '+ self.description +' >>>>\n')   
     def end(self):
         # print the time this mission used and so far since initial.
         self.endtime = timeit.default_timer()
         interval = format(self.endtime-self.starttime,'.5f')
         sofar = format(self.endtime-self.begintime,'.5f')
-        print('\n<<<< End: '+ self.mis + ' , USE: '+interval + ' , SO FAR: ' + sofar + ' S <<<<\n')
+        print('\n<<<< End: '+ self.description + ' , USE: '+interval + ' , SO FAR: ' + sofar + ' S <<<<\n')
 
 # Count in a Flush Manner--------------------
-class counter:
-    
-    def __init__(self, sleep=0.01, count='Count',number=0):
+class counter:   
+    def __init__(self, sleep=0.01, description='Count',number=0):
         # Default: sleep 0.01s each count, print'Count' and start from 0.
         self.sleep=sleep
-        self.count=count
+        self.description=description
         self.number=number
-
-
     def flush(self):
         # Count the number and print it in a flush way by [end='\r'].
         # So it may be disturbed by other print.  
         self.number=self.number+1
-        print(self.count+': '+str(self.number),end='\r')
+        print(self.description+': '+str(self.number),end='\r')
         time.sleep(self.sleep)
 
-
+# Print first 5 items of dict, list, string, tuple, pandas.series, numpy.ndarray---------
 def printfive(results, description="the target data"):
-    # Print first 5 items of dict, list, string, tuple, pandas.series, numpy.ndarray
     # For pandas.DataFrame the head() and tail() is enough
     # description is optional. Default as: "the target data"   
     print('\nprint 5 samples - : ' + description)
@@ -91,19 +84,17 @@ def printfive(results, description="the target data"):
         if type(results)==type({"he":1}):
             a=list(results.items())[:5]
             print(a)
-            print('Notes: Although print as list, it did not change actually.')
-        
+            print('Notes: Although print as list, it did not change actually.')       
         elif len(results)<5:
             for i in range(len(results)):
                 print(results[i])
-
         else:           
             for i in range(5):
                 print(results[i])
     except:
         print('Please check data. Only dict, list, string, tuple, pandas.series, numpy.ndarray are support!')
 
-###Internal Test-----------------------
+#Internal Test-----------------------
 if __name__== '__main__':
     mission0 = Mission('Internal Test')
 

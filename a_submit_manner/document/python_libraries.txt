@@ -8,8 +8,9 @@ datetime
 time
 pandas
 re
+nltk
 nltk.corpus
-nltk.stem.porter
+nltk.tokenize.casual
 nltk.stem
 
 
@@ -28,6 +29,7 @@ TerDec.py
 pandas
 sqlite3
 re
+nltk
 nltk.corpus
-nltk.stem.porter
+nltk.tokenize.casual
 nltk.stem
