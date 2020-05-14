@@ -11,7 +11,7 @@ import TerDec as td # Personal module,needs TerDec.py needs pandas
 ############################
 
 mission0=td.Mission('Initial')
-dbpath=td.setpath(r'./data/tweets_raw.db') #Path tool from TerDec.py
+dbpath=td.setpath(r'./data/tweets_raw0514.db') #Path tool from TerDec.py
 dbpath.askupdate('Path of database')
 kwpath=td.setpath(r'./data/key_words.csv')
 kwpath.askupdate('Path of key words list')
@@ -27,19 +27,24 @@ df.info()
 print('\n',df.head())
 mission0.end()
 
-mission1=td.Mission('Filter words lists (key & location) from csv data, format date')
+mission1=td.Mission('Filter words lists (key & location) from csv data, set stop with special cases, format date')
 key_words = pd.read_csv(kwpath.path)
 location_words = pd.read_csv(lwpath.path)
 keywords_list = ""
 location_list=""
+stop_words = set(stopwords.words('english'))
+special_stopwords=['rt','amp','im']
 print('Key words:\n',key_words)
 print('Locations:\n',location_words)
 for index,row in key_words.iterrows():
     keywords_list = keywords_list+row['keywords'] +'|'
+    special_stopwords.append(row['keywords'])
 keywords_input = keywords_list[:-1] #delete the last '|'
 for index,row in location_words.iterrows():
     location_list = location_list+row['location'] +'|'
+    special_stopwords.append(row['keywords'])
 location_input = location_list[:-1]
+stop_words.update(special_stopwords)
 df_kw=df.loc[df['tweets'].str.contains(keywords_input,flags=re.IGNORECASE, regex=True)]
 df_kw_have=df_kw.loc[pd.notna(df_kw['user_location'])]
 df_kw_nan=df_kw.loc[pd.isna(df_kw['user_location'])]
@@ -61,20 +66,12 @@ def drop_at_hashtag_url(inputString):
     cached=inputString.split()
     new=[]
     for i in cached:
-        if "@" in i or "#" in i or r"http:/" in i or r"https:/" in i:
+        if "@" in i or r"http:/" in i or r"https:/" in i:
             pass
         else:
             new.append(i)
     outstring=" ".join(new)
     return outstring
-def drop_stop(lists):
-    #You can add stop words by the golbal variable, stop_words 
-    new=[]
-    global stop_words
-    for i in lists:
-        if i not in stop_words:
-            new.append(i)
-    return new
 def lemmatizeWords(lists):
     #Map POS tag to first character lemmatize() accepts
     new=[]
@@ -88,8 +85,6 @@ def lemmatizeWords(lists):
         new.append(wnl.lemmatize(i,pos))      
     return new
 tokenizer=TweetTokenizer()
-stop_words = set(stopwords.words('english'))
-stop_words.add(r'rt')
 wnl = WordNetLemmatizer()
 mission2.end()
 
@@ -100,12 +95,12 @@ df_fl.loc[:,"cleaning"] = df_fl["tweets"]
 df_fl.loc[:,"cleaning"]  = [deEmojify(i) for i in df_fl["cleaning"]]
 df_fl.loc[:,"cleaning"]  = [i.lower() for i in df_fl["cleaning"]]
 df_fl.loc[:,"cleaning"]   = [drop_at_hashtag_url(i) for i in df_fl["cleaning"]]
+df_fl.loc[:,"cleaning"]   =df_fl.apply(lambda x: ' '.join([word for word in x.split() if word not in stop_words]))
 df_fl.loc[:,"cleaning"] = [re.sub('[^a-zA-Z]', ' ',i) for i in df_fl["cleaning"]]
 mission3_1.end()
 
-mission3_2=td.Mission('Tokenize, stop words, lemmatize')
+mission3_2=td.Mission('Tokenize, lemmatize')
 df_fl.loc[:,"cleaning"] = df_fl["cleaning"].apply(lambda tweet: tokenizer.tokenize(tweet))
-df_fl.loc[:,"cleaning"] = [drop_stop(i) for i in df_fl["cleaning"]]
 df_fl.loc[:,"cleaning"] = [lemmatizeWords(i) for i in df_fl["cleaning"]]
 mission3_2.end()
 

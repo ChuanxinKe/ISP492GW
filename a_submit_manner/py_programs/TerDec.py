@@ -1,7 +1,10 @@
 """
-This is a terminal decoration module. It aims at building a fresher-friendly presentation of terminal outputs.
-However it can also be used to replace some of the notes, so it won't bring to many burdens to developers and lines to script.
-The author also believes that it helps to debug by using from the beginning. Let your terminal talking!!!
+This is a terminal decoration module.
+It aims at building a fresher-friendly presentation of terminal outputs.
+However it can also be used to replace some of the notes.
+So it won't bring to many burdens to developers and lines to script.
+The author also believes that it helps to debug by using from the beginning.
+Let your terminal talking!!!
 
 By the way, it takes your machine some time to do so.
 >>>if you are a starter: 
@@ -16,7 +19,7 @@ Table of Contents
 3. Count in a Flush Manner
 4. Print First 5 Items of dict, list, string, tuple, numpy.array
 
-Copyright: kcxwdzx@sina.com                    Last Modify Date:13/05/2020
+Copyright: kcxwdzx@sina.com                    Last Modify Date:14/05/2020
 
 """
 #Import--------------
@@ -32,7 +35,7 @@ class setpath:
         #Just put new file name inside new path.
         #description is optional, default as:'Current path'
         while True:
-            print(reminder+': '+ self.path)
+            print(description+': '+ self.path)
             change = input("Do you want to change? (y/n): ")
             if change == 'y':
                 self.path = input('Please put new path here:')
@@ -78,7 +81,7 @@ class counter:
 def printfive(results, description="the target data"):
     # For pandas.DataFrame the head() and tail() is enough
     # description is optional. Default as: "the target data"   
-    print('\nprint 5 samples - : ' + description)
+    print('\nprint 5 samples: ' + description)
     print(type(results))
     try:
         if type(results)==type({"he":1}):
@@ -115,7 +118,7 @@ if __name__== '__main__':
     sample1 = ('North','South','West','East')
     sample2 = 'hello'
     sample3 = [1,2,3,4,5,6,7]
-    sample4 = {"David":"UK", "Mike":"US", "James":"Japen","Tim":"US","Robert":"US","Chris":"China"}
+    sample4 = {"David":"UK", "Mike":"US", "James":"Japan","Tim":"US","Robert":"US","Chris":"China"}
     sample5 = set(["London","New York","Manchster","Leeds","Loughborough","Surry"])
     printfive(sample1,'sample1-position(tuple,4 items)')
     printfive(sample2,'sample2-hello(string, 5 items)')
