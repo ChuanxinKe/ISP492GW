@@ -7,11 +7,12 @@ from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize.casual import TweetTokenizer
 from nltk.corpus import wordnet
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import TerDec as td # Personal module,needs TerDec.py
 ############################
 
 mission0=td.Mission('Initial')
-dbpath=td.setpath(r'./data/tweets_raw0512_14.db') #Path tool from TerDec.py
+dbpath=td.setpath(r'C:\Users\kcx\Desktop\JAMCS.db') #Path tool from TerDec.py
 dbpath.askupdate('Path of database')
 kwpath=td.setpath(r'./data/key_words.csv')
 kwpath.askupdate('Path of key words list')
@@ -21,45 +22,55 @@ expath=td.setpath(r'./data/target.xlsx')
 expath.askupdate('Path of output excel file')
 conn = sqlite3.connect(dbpath.path)
 c = conn.cursor()
+mission0.end()
+
+mission0_1=td.Mission("Get data from database")
 df = pd.read_sql("SELECT * FROM raw_tweets", conn) #Get all data
 print('Check Data Structure and first 5:\n')
 df.info()
 print('\n',df.head())
-mission0.end()
+mission0_1.end()
 
-mission1=td.Mission('Filter words lists (key & location) from csv data, set stop words with special cases')
+mission1=td.Mission("Prepare word lists")
+mission1_1=td.Mission('Get filter words (key & location) from csv data')
 key_words = pd.read_csv(kwpath.path)
 location_words = pd.read_csv(lwpath.path)
 keywords_list = ""
 location_list=""
-stop_words = set(stopwords.words('english'))
-special_stopwords=['rt','amp','im','u','could','dont','youre','would','uk']
 print('Key words:\n',key_words)
 print('Locations:\n',location_words)
+
+mission1_2=td.Mission('Initial stop words list')
+stop_words = set(stopwords.words('english'))
+special_stopwords=['rt','amp','im','u','could','dont','youre','would','uk']
+
+mission1_3=td.Mission('Form filter lists and update special stop words')
 for index,row in key_words.iterrows():
     keywords_list = keywords_list+row['keywords'] +'|'
     special_stopwords.append(row['keywords'])
 keywords_input = keywords_list[:-1] #delete the last '|'
 for index,row in location_words.iterrows():
     location_list = location_list+row['location'] +'|'
-    #special_stopwords.append(row['location'])
 location_input = location_list[:-1]
 stop_words.update(special_stopwords)
 mission1.end()
 
-mission2=td.Mission('Filter by multiple constrains, drop duplicates, format date')
+mission2_1=td.Mission('Filter by multiple constrains')
 df_kw=df.loc[df['tweets'].str.contains(keywords_input,flags=re.IGNORECASE, regex=True)]
 df_kw_have=df_kw.loc[pd.notna(df_kw['user_location'])]
 df_kw_nan=df_kw.loc[pd.isna(df_kw['user_location'])]
 df_fl_1=df_kw_have.loc[df_kw_have['user_location'].str.contains(location_input,flags=re.IGNORECASE, regex=True)]
 df_fl_2=df_kw_nan.loc[df_kw_nan['tweets'].str.contains(location_input,flags=re.IGNORECASE, regex=True)]
 df_fl=df_fl_1.append(df_fl_2)
+mission2_1.end()
+
+mission2_2=td.Mission('Drop duplicates, format Date')
 df_fl.drop_duplicates(subset='tweets', inplace=True)
 df_fl.loc[:,'timestamp_ms'] = pd.to_datetime(df_fl['timestamp_ms'],unit='ms')
 print('Check Filtered Data Structure: \n')
 df_fl.info()
 print(df_fl.head())
-mission2.end()
+mission2_2.end()
 
 mission3=td.Mission('Setup text processing functions')
 def deEmojify(inputString): 
@@ -99,27 +110,39 @@ tokenizer=TweetTokenizer()
 wnl = WordNetLemmatizer()
 mission3.end()
 
-mission4=td.Mission('Text Process')
-
-mission4_1=td.Mission('Lowcase, drop emoji, url, retweet_at and punctuation')
+mission4=td.Mission('Text processes')
+mission4_1=td.Mission('Lowcase, drop emoji')
 df_fl.loc[:,"cleaning"] = df_fl["tweets"]
 df_fl.loc[:,"cleaning"]  = [deEmojify(i) for i in df_fl["cleaning"]]
 df_fl.loc[:,"cleaning"]  = [i.lower() for i in df_fl["cleaning"]]
+
+mission4_2=td.Mission('Drop url, retweet_at and punctuation')
 df_fl.loc[:,"cleaning"]   = [drop_at_url(i) for i in df_fl["cleaning"]]
+
+mission4_3=td.Mission('Drop punctuation')
 df_fl.loc[:,"cleaning"] = [re.sub('[^a-zA-Z]', ' ',i) for i in df_fl["cleaning"]]
-mission4_1.end()
 
-mission4_2=td.Mission('Tokenize, stop words, lemmatize')
+mission4_4=td.Mission('Tokenize')
 df_fl.loc[:,"cleaning"] = df_fl["cleaning"].apply(lambda tweet: tokenizer.tokenize(tweet))
-df_fl.loc[:,"cleaning"] = [lemmatizeWords(i) for i in df_fl["cleaning"]]
-df_fl.loc[:,"cleaning"] = [drop_stop(i) for i in df_fl["cleaning"]]
-mission4_2.end()
+mission4_4.end()
 
-print('\nCheck cleaned Data Structure and samples:')
+mission4_5=td.Mission('Lemmatize')
+df_fl.loc[:,"cleaning"] = [lemmatizeWords(i) for i in df_fl["cleaning"]]
+mission4_5.end()
+
+mission4_6=td.Mission('Drop stop words')
+df_fl.loc[:,"cleaning"] = [drop_stop(i) for i in df_fl["cleaning"]]
+
+print('\nPrint cleaned Data:')
 df_fl.info()
 print('\n',df_fl.head())
 mission4.end()
 
-mission5=td.Mission('Export to Excel')
-df_fl.to_excel(expath.path,index=False)
+mission5=td.Mission('Get Vader sentiment intensity scores')
+analyzer = SentimentIntensityAnalyzer()
+df_fl.loc[:,"compound"] = [analyzer.polarity_scores(i)['compound'] for i in df_fl["tweets"]]
 mission5.end()
+
+mission6=td.Mission('Export to Excel')
+df_fl.to_excel(expath.path,index=False)
+mission6.end()

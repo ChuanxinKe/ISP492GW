@@ -1,32 +1,15 @@
-import io
-import string
-import warnings
+#LIBRARIES
 import pandas as pd
-import numpy as np
 import warnings
-import TerDec as td # Personal module,needs TerDec.py
-warnings.filterwarnings('ignore')
-
-# python imports
-import re
-import json
-import os
 from collections import Counter
-import datetime as dt
 from ast import literal_eval
-
-# Visualization
 from matplotlib import pyplot as plt
 from matplotlib import ticker
 import seaborn as sns
 from wordcloud import WordCloud
-from tqdm import tqdm_notebook
-
-# Saving models
-import pickle
-
-from unidecode import unidecode
-
+import TerDec as td # Personal module,needs TerDec.py
+warnings.filterwarnings('ignore')
+############################
 
 mission0=td.Mission('Initial')
 dbpath=td.setpath(r'./data/target.xlsx') #Path tool from TerDec.py
@@ -48,22 +31,19 @@ fig = plt.figure(figsize=(10,5))
 ax = fig.add_subplot(111)
 ax.set(title='Tweet Sentiments Distribution', xlabel='polarity', ylabel='frequency')
 sns.distplot(sent_scores_df['compound'], bins=30, ax=ax)
-# plt.show()
 plt.savefig('sentiment_distribution.png')
 mission2.end()
 
 mission3=td.Mission('Draw bar chart of sentiment classify count')
-#绘制情绪得分计数
 sent_counts = pd.DataFrame.from_dict(Counter(sent_scores_df['val']), orient = 'index').reset_index()
 sent_counts.columns = ['sentiment', 'count']
-sns.barplot(y="count", x='sentiment', data=sent_counts)
+sns.barplot(y="Count", x='Sentiment', data=sent_counts)
 for index, row in sent_counts.iterrows():
     ax.text(row.name,row["count"]+float(15),row["count"], color='red', ha="center")
 plt.savefig('sentiment.png')
 mission3.end()
 
 mission4=td.Mission("Make word list and count frequency")
-#将所有推文串联成单词列表
 word_list = []
 for index,row in df.iterrows():
     lists=literal_eval(row['cleaning'])
@@ -77,16 +57,14 @@ print('\n',counts_df.head())
 mission4.end()
 
 mission5=td.Mission('Draw bar chart of word count')
-#词频可视化
 ax = plt.subplots(figsize = (14, 14))
-ax = sns.barplot(y="word", x='frequency', data=counts_df)
+ax = sns.barplot(y="Word", x='Frequency', data=counts_df)
 for index, row in counts_df.iterrows():
     ax.text(row["frequency"]+float(5),row.name,row["frequency"], color='gray',ha='left')
 plt.savefig('wordcount_bar.png')
 mission5.end()
 
 mission6=td.Mission('Word Cloud of All Words')
-#wordcloud所有单词
 wordcloud = WordCloud(
     background_color='black',
     max_words=50,
@@ -104,7 +82,6 @@ plt.savefig('wordcloud.png')
 mission6.end()
 
 mission7=td.Mission('Draw word cloud by sentiment classify')
-#wordcloud根据情绪得分画图
 polar_tweets_df = pd.DataFrame()
 polar_tweets_df['tweet'] = df['cleaning']
 polar_tweets_df['polarity'] = sent_scores_df['val']

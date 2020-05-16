@@ -2,29 +2,23 @@
 from tweepy import Stream
 from tweepy import OAuthHandler
 from tweepy.streaming import StreamListener
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import json
 import sqlite3
-import datetime
 import time
 import TerDec as td # Personal module,needs TerDec.py
 ############################
 
 mission0_1=td.Mission('Initial variables. Connecting to database') #Mission Reply tool from TerDec.py
 ct=td.counter(description='Tweets into database',sleep=0) #Counter from TerDec.py
-dbpath=td.setpath(r'./data/tweets_raw.db') #Path tool from TerDec.py
+dbpath=td.setpath(r'./data/JAMCS.db') #Path tool from TerDec.py
 dbpath.askupdate('Path of database')
 conn = sqlite3.connect(dbpath.path)
-analyzer = SentimentIntensityAnalyzer()
 c = conn.cursor()
-today_table="CREATE TABLE IF NOT EXISTS raw_tweets (id_str TEXT, tweets TEXT,\
-    user_id_str TEXT, lang TEXT, timestamp_ms REAL,\
-    neg REAL, neu REAL,pos REAL,compound REAL,\
+table="CREATE TABLE IF NOT EXISTS raw_tweets (id_str TEXT, tweets TEXT,user_id_str TEXT, timestamp_ms REAL,\
     user_location TEXT,user_followers REAL,user_friends REAL,user_favourites REAL,user_statuses REAL)"
-today_upload="INSERT INTO raw_tweets (id_str, tweets,user_id_str, lang, timestamp_ms,\
-              neg, neu,pos,compound,\
-              user_location,user_followers,user_friends,user_favourites,user_statuses) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
-c.execute(today_table)
+upload="INSERT INTO raw_tweets (id_str, tweets,user_id_str, timestamp_ms,\
+              user_location,user_followers,user_friends,user_favourites,user_statuses) VALUES (?,?,?,?,?,?,?,?,?)"
+c.execute(table)
 conn.commit()
 mission0_1.end()
 
@@ -55,7 +49,7 @@ class listener(StreamListener): #listener is being declared as a class inheritin
             raw_data = json.loads(data)
             lang=raw_data['lang']
             if lang=='en':    # first filter by this label, keep it into database for check
-                text=self.fulltext_handler(raw_data)
+                tweets=self.fulltext_handler(raw_data)
                 id_str=raw_data['id_str']
                 user_id_str=raw_data['user']['id_str']
                 user_location=raw_data['user']['location']
@@ -64,16 +58,10 @@ class listener(StreamListener): #listener is being declared as a class inheritin
                 user_favourites=raw_data['user']['favourites_count']
                 user_statuses=raw_data['user']['statuses_count']
                 timestamp_ms=raw_data['timestamp_ms']
-                vs = analyzer.polarity_scores(text)
-                neg = vs['neg']
-                neu = vs['neu']
-                pos = vs['pos']
-                compound = vs['compound']
-                c.execute(today_upload,(id_str,text,user_id_str,lang,timestamp_ms,\
-                    neg,neu,pos,compound,\
+                c.execute(upload,(id_str,tweets,user_id_str,timestamp_ms,\
                     user_location,user_followers,user_friends,user_favourites,user_statuses))
                 conn.commit()
-                ct.flush() # Show number into database
+                ct.flush() # Show number of tweets already into database
             else:
                 pass
 
@@ -81,7 +69,7 @@ class listener(StreamListener): #listener is being declared as a class inheritin
             pass
 ############################
 
-mission1=td.Mission('Start to fetching and insert into database (Only be stopped manually)')
+mission1=td.Mission('Start to fetch and insert into database (Only be stopped manually)')
 for aftererror in range(10): #If error, it can still try.
     try:
         auth = OAuthHandler(ckey, csecret)
