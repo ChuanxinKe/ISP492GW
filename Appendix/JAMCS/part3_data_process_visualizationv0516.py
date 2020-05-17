@@ -13,7 +13,7 @@ warnings.filterwarnings('ignore')
 
 mission0=td.Mission('Initial')
 dbpath=td.setpath(r'./data/target.xlsx') #Path tool from TerDec.py
-dbpath.askupdate('Path of data file')
+dbpath.askupdate('Path of data file') # Ask if path need change. Input y or n.
 df=pd.read_excel(dbpath.path)
 print('Check Data Structure and first 5:\n')
 df.info()
@@ -29,17 +29,17 @@ mission1.end()
 mission2=td.Mission('Draw sentiment scores distribution')
 fig = plt.figure(figsize=(10,5))
 ax = fig.add_subplot(111)
-ax.set(title='Tweet Sentiments Distribution', xlabel='polarity', ylabel='frequency')
 sns.distplot(sent_scores_df['compound'], bins=30, ax=ax)
 plt.savefig('sentiment_distribution.png')
 mission2.end()
 
 mission3=td.Mission('Draw bar chart of sentiment classify count')
 sent_counts = pd.DataFrame.from_dict(Counter(sent_scores_df['val']), orient = 'index').reset_index()
-sent_counts.columns = ['sentiment', 'count']
+sent_counts.columns = ['Sentiment', 'Count']
 sns.barplot(y="Count", x='Sentiment', data=sent_counts)
 for index, row in sent_counts.iterrows():
-    ax.text(row.name,row["count"]+float(15),row["count"], color='red', ha="center")
+    ax.text(row.name,row["Count"]+float(15),row["Count"], color='red', ha="center")
+print(sent_counts)
 plt.savefig('sentiment.png')
 mission3.end()
 
@@ -52,7 +52,7 @@ for index,row in df.iterrows():
 sns.set(style="darkgrid")
 counts = Counter(word_list).most_common(50)
 counts_df = pd.DataFrame(counts)
-counts_df.columns = ['word', 'frequency']
+counts_df.columns = ['Word', 'Frequency']
 print('\n',counts_df.head())
 mission4.end()
 
@@ -60,7 +60,7 @@ mission5=td.Mission('Draw bar chart of word count')
 ax = plt.subplots(figsize = (14, 14))
 ax = sns.barplot(y="Word", x='Frequency', data=counts_df)
 for index, row in counts_df.iterrows():
-    ax.text(row["frequency"]+float(5),row.name,row["frequency"], color='gray',ha='left')
+    ax.text(row["Frequency"]+float(5),row.name,row["Frequency"], color='gray',ha='left')
 plt.savefig('wordcount_bar.png')
 mission5.end()
 
@@ -83,16 +83,17 @@ mission6.end()
 
 mission7=td.Mission('Draw word cloud by sentiment classify')
 polar_tweets_df = pd.DataFrame()
-polar_tweets_df['tweet'] = df['cleaning']
-polar_tweets_df['polarity'] = sent_scores_df['val']
+polar_tweets_df['wordlist'] = df['cleaning']
+polar_tweets_df['val'] = sent_scores_df['val']
 
-positive = polar_tweets_df[polar_tweets_df['polarity'] == 'positive']['tweet']
-negative = polar_tweets_df[polar_tweets_df['polarity'] == 'negative']['tweet']
-neutral = polar_tweets_df[polar_tweets_df['polarity'] == 'neutral']['tweet']
+positive = polar_tweets_df[polar_tweets_df['val'] == 'positive']['wordlist']
+negative = polar_tweets_df[polar_tweets_df['val'] == 'negative']['wordlist']
+neutral = polar_tweets_df[polar_tweets_df['val'] == 'neutral']['wordlist']
 
-positive_list = [word for li in positive for word in literal_eval(li)]
-negative_list = [word for li in negative for word in literal_eval(li)]
-neutral_list = [word for li in neutral for word in literal_eval(li)]
+positive_list = [word for wordlist in positive for word in literal_eval(wordlist)]
+negative_list = [word for wordlist in negative for word in literal_eval(wordlist)]
+neutral_list = [word for wordlist in neutral for word in literal_eval(wordlist)]
+td.printfive(positive_list, 'Resource for drawing positive words cloud')
 
 positive_cloud = WordCloud(
     background_color='black',

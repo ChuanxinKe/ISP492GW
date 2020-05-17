@@ -12,7 +12,7 @@ mission0_1=td.Mission('Initial variables. Connecting to database') #Mission Repl
 ct=td.counter(description='Tweets into database',sleep=0) #Counter from TerDec.py
 dbpath=td.setpath(r'./data/JAMCS.db') #Path tool from TerDec.py
 dbpath.askupdate('Path of database')
-conn = sqlite3.connect(dbpath.path)
+conn = sqlite3.connect(dbpath.path) # Ask if path need change. Input y or n.
 c = conn.cursor()
 table="CREATE TABLE IF NOT EXISTS raw_tweets (id_str TEXT, tweets TEXT,user_id_str TEXT, timestamp_ms REAL,\
     user_location TEXT,user_followers REAL,user_friends REAL,user_favourites REAL,user_statuses REAL)"
@@ -32,7 +32,7 @@ mission0_2.end()
 # class object
 class listener(StreamListener): #listener is being declared as a class inheriting from base class StreamListener
 
-    def fulltext_handler(self,jsondata):
+    def fulltext_handler(self,jsondata): # Based on the research in May 2020, this method can get most full text of tweets.
         try:
             full=jsondata['retweeted_status']['extended_tweet']['full_text']
             return full
@@ -48,12 +48,12 @@ class listener(StreamListener): #listener is being declared as a class inheritin
         try: 
             raw_data = json.loads(data)
             lang=raw_data['lang']
-            if lang=='en':    # first filter by this label, keep it into database for check
+            if lang=='en':    # first filter by language label
                 tweets=self.fulltext_handler(raw_data)
                 id_str=raw_data['id_str']
                 user_id_str=raw_data['user']['id_str']
                 user_location=raw_data['user']['location']
-                user_followers=raw_data['user']['followers_count']
+                user_followers=raw_data['user']['followers_count'] # The following 4 attributes maybe use in the future
                 user_friends=raw_data['user']['friends_count']
                 user_favourites=raw_data['user']['favourites_count']
                 user_statuses=raw_data['user']['statuses_count']
