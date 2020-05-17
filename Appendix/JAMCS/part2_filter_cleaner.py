@@ -12,7 +12,7 @@ import TerDec as td # Personal module,needs TerDec.py
 ############################
 
 mission0=td.Mission('Initial')
-dbpath=td.setpath(r'C:\Users\kcx\Desktop\JAMCS.db') #Path tool from TerDec.py
+dbpath=td.setpath(r'./data/JAMCS_0513.db') #Path tool from TerDec.py
 dbpath.askupdate('Path of database') # Ask if path need change. Input y or n.
 kwpath=td.setpath(r'./data/key_words.csv')
 kwpath.askupdate('Path of key words list')
